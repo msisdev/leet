@@ -4,21 +4,28 @@
 #include <unordered_map>
 #include <vector>
 
+using namespace std;
+
 class Solution {
 public:
-    std::vector<int> twoSum(const std::vector<int>& nums, int target) {
-        std::unordered_map<int, int> index_of;
-        for (int i = 0; i < static_cast<int>(nums.size()); ++i) {
-            int need = target - nums[i];
-            auto it = index_of.find(need);
-            if (it != index_of.end()) {
-                return {it->second, i};
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> index_of;
+
+        vector<int> res = {0, 0};
+        for (size_t i = 0; i < nums.size(); i += 1) {
+            int v = nums[i];
+            if (index_of.count(target - v)) {
+                res[0] = index_of[target-v];
+                res[1] = i;
+                return res;
             }
-            index_of[nums[i]] = i;
+            index_of[v] = i;
         }
-        return {};
+
+        return res;
     }
 };
+
 
 void run_p0001_demo() {
     Solution s;
