@@ -28,6 +28,9 @@ cat > "$SOURCE" <<EOF
 #include "problems/p${ID}_${SLUG}.hpp"
 
 #include <vector>
+#include <string>
+
+using namespace std;
 
 class Solution {
 public:
