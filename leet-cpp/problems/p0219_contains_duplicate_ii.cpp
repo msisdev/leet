@@ -7,25 +7,26 @@
 
 using namespace std;
 
+// Use fixed length window
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums) {
-        unordered_set<int> num_set(nums.begin(), nums.end());
-        int res = 0;
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_set<int> window;
 
-        for (int num : num_set) {
-            if (!num_set.count(num - 1)) {
-                int i = 1;
-
-                while (num_set.count(num + i)) {
-                    i += 1;
-                }
-
-                res = std::max(res, i);
+        for (int i = 0; i < nums.size(); i++) {
+            if (window.count(nums[i])) {
+                return true;
+            }
+            
+            window.insert(nums[i]);
+            
+            // Keep window size at most k
+            if (window.size() > k) {
+                window.erase(nums[i - k]);
             }
         }
 
-        return (res);
+        return false;
     }
 };
 
